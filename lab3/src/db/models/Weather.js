@@ -48,15 +48,6 @@ const Weather = sequelize.define('weather', {
     sunrise: {
         type: DataTypes.DATE,
     },
-    wind_kph: {
-        type: DataTypes.DOUBLE,
-    },
-    wind_degree: {
-        type: DataTypes.DOUBLE,
-    },
-    wind_direction: {
-        type: DataTypes.ENUM({ values: Object.values(WindDirectionEnum) }),
-    },
 }, {
     tableName: 'weather',
     timestamps: false,
