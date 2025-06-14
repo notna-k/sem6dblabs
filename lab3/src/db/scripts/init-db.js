@@ -38,18 +38,12 @@ const CHUNK_SIZE = 1000;
 
 async function initDB() {
     try {
-        await sequelize.authenticate();
-        console.log('DB connected');
-
-        await runMigrations();
-
         const filePath = path.join(process.cwd(), 'data', 'GlobalWeatherRepository.csv');
         const rawRows = await importCSV(filePath);
 
         await insertInChunks(Weather, rawRows, CHUNK_SIZE);
 
         console.log(`✅ Finished inserting ${rawRows.length} records`);
-        await sequelize.close();
     } catch (e) {
         console.error('❌ Error:', e);
         process.exit(1);
