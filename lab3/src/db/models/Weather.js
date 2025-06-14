@@ -45,9 +45,6 @@ const Weather = sequelize.define('weather', {
     last_updated: {
         type: DataTypes.DATE,
     },
-    sunrise: {
-        type: DataTypes.DATE,
-    },
     wind_kph: {
         type: DataTypes.DOUBLE,
     },
