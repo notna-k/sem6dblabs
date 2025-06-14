@@ -45,9 +45,6 @@ const Weather = sequelize.define('weather', {
     last_updated: {
         type: DataTypes.DATE,
     },
-    sunrise: {
-        type: DataTypes.DATE,
-    },
 }, {
     tableName: 'weather',
     timestamps: false,

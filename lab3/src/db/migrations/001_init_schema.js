@@ -14,7 +14,6 @@ module.exports.up = async ({ context: sequelize }) => {
             longitude DOUBLE PRECISION,
             timezone VARCHAR(100),
             last_updated TIMESTAMP,
-            sunrise TIMESTAMP,
             wind_kph DOUBLE PRECISION,
             wind_degree DOUBLE PRECISION,
             wind_direction wind_direction_enum

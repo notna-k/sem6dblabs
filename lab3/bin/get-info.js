@@ -1,29 +1,29 @@
 require('dotenv').config();
 
-const {Command, Option} = require('commander');
-const {weatherService} = require("../src/weather/weather.service");
+const { Command } = require('commander');
+const { weatherService } = require("../src/weather/weather.service");
 const { sequelize } = require('../src/db/sequelize');
 const { runMigrations } = require('../src/db');
-const { initDB } = require('../src/db/scripts/init-db');
 const program = new Command();
 
 program
-    .name('run')
-    .addOption(new Option('-c, --country'))
-    .addOption(new Option('-d, --date'))
-    .action(async ({country, date}) => {
-        if(!country) throw new Error('Parameter "country" (--country) is required!');
-        if(!date) throw new Error('Parameter "date" (--date) is required!');
+  .requiredOption('-c, --country <country>', 'Country name')
+  .requiredOption('-d, --date <date>', 'Date in YYYY-MM-DD format')
+  .action(async (opts) => {
+    const { country, date } = opts;
 
+    if (!country) throw new Error('Parameter "country" (--country) is required!');
+    if (!date) throw new Error('Parameter "date" (--date) is required!');
 
-      await sequelize.authenticate();
-      console.log('DB connected');
+    await sequelize.authenticate();
+    console.log('DB connected');
 
-      await runMigrations();
+    await runMigrations();
 
-      const data = await weatherService.getInfo({country, date})
-      console.log(data)
-      await sequelize.close();
-    })
+    const data = await weatherService.getInfo({ country, date });
+    console.log(data);
 
-program.parse();
+    await sequelize.close();
+  });
+
+program.parse(process.argv);
