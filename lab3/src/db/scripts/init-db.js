@@ -41,8 +41,6 @@ async function initDB() {
         await sequelize.authenticate();
         console.log('DB connected');
 
-        await runMigrations();
-
         const filePath = path.join(process.cwd(), 'data', 'GlobalWeatherRepository.csv');
         const rawRows = await importCSV(filePath);
 
